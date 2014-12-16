@@ -1,0 +1,69 @@
+doctype 5
+html(lang="event")
+  head
+    title= title
+    link(rel='stylesheet/less', href='/stylesheets/bootstrap.less')
+    link(rel='stylesheet/less', href='/stylesheets/bootstrap-responsive.less')
+    link(rel='stylesheet/less', href='/stylesheets/style.less')
+    script(src='/javascripts/jquery.js')
+    script(src='/javascripts/bootstrap.js')
+    script(src='/javascripts/less.js')
+    script(src="/socket.io/socket.io.js")
+    script(src="/javascripts/functions.js")
+    
+
+    
+
+  body
+    //- include hook.jade
+    include header.jade
+    div.container-fluid#container
+      div.row-fluid
+        div.span8
+          div.row-fluid
+            div.span12.well
+              block content
+        include friends.jade
+
+    div.modal.hide.fade#modalConnexion
+      div.modal-header
+        h3 Connexion
+      div.modal-body
+        form 
+          fieldset
+            legend username 
+            input(type="text", id="newUserName", required="required")
+      div.modal-footer
+        button.btn.btn-primary#userNameValidation Save
+
+    script(src="/javascripts/socket-io.js") 
+    script(type="text/javascript")
+      var _username = readCookie("Username");
+      if(_username == null) {
+        $("#modalConnexion").modal("show");
+        $("#userNameValidation").click(function() {
+          _username = $("#newUserName").val();
+          $("#modalConnexion").modal("hide");
+          UserConnected(_username);
+        });
+      }else{
+        UserConnected(_username);
+      }
+
+
+      // Send message broadcast
+      $("#send").click(function() {
+        
+        event.preventDefault();
+        
+        var message = $("#message").val();      
+
+        if(message == "") return false;
+        
+        var message = { "username" : _username , 
+                        "content" : message  }; 
+                        
+        SendMessageToAll(message);
+        DisplayMessage(message, 1);
+
+      });

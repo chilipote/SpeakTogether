@@ -1,0 +1,21 @@
+extends layout
+
+block content
+  div.row-fluid
+    div.span12
+      h2= title 
+  div.row-fluid
+    div.span12
+      p Welcome to #{title}
+  div.row-fluid
+    div.span12#conversation
+
+  div.row-fluid
+    form
+      input(type="text").span11#message
+      button(type="button", value="Send").btn.align-right#send Send
+
+
+
+
+
