@@ -1,2 +1,25 @@
-nodes_modules/
-.DS_STORE
+## files to ignore
+*~
+*.lock
+*.DS_Store
+*.swp
+*.out
+*.log
+/test/browser/test.js
+
+
+## node files
+/node_modules
+/.idea
+
+## docker files
+/dockerconfig
+Dockerfile
+startinsidedocker.sh
+
+## REDIS
+*.rdb
+
+## NOHUP
+*.out
+
